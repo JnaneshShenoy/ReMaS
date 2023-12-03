@@ -47,3 +47,20 @@ Highlighting the backend functionalities and database handling, explaining query
 
 This structure provides a comprehensive overview of the project's objectives, design guidelines, 
 page-specific details, security measures, and technical emphasis on database handling and server logic execution.
+
+
+# Steps to Start and Run the Site using VSCode and Terminal:
+
+Clone the repository.
+Navigate to client and server directories separately in the terminal.
+Install dependencies using npm install.
+Start the client-side using npm start.
+Run the server using node server.js.
+
+# Implementation Steps:
+Design and build the UI components using HTML/CSS/JS.
+Implement front-end logic for search, filtering, and displaying products.
+Set up server routes for user, shopkeeper, and product functionalities.
+Integrate front-end and back-end functionalities using API calls.
+
+Test thoroughly, ensuring proper functionality and security measures.
