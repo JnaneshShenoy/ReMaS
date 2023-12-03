@@ -1,0 +1,12 @@
+{
+  "name": "project_root",
+  "version": "1.0.0",
+  "description": "Steps to Start and Run the Site using VSCode and Terminal:\r Clone the repository.\r Navigate to client and server directories separately in the terminal.\r Install dependencies using npm install.\r Start the client-side using npm start.\r Run the server using node server.js.\r Implementation Steps:\r Design and build the UI components using HTML/CSS/JS.\r Implement front-end logic for search, filtering, and displaying products.\r Set up server routes for user, shopkeeper, and product functionalities.\r Integrate front-end and back-end functionalities using API calls.\r Test thoroughly, ensuring proper functionality and security measures.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
