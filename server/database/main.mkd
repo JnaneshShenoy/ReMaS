@@ -1,0 +1,94 @@
+-- Create tables for users, shops, categories, and products
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY, -- Unique identifier for users
+    username VARCHAR(50) UNIQUE NOT NULL, -- User's username
+    email VARCHAR(100) UNIQUE NOT NULL, -- User's email
+    password_hash VARCHAR(100) NOT NULL, -- Hashed password for security
+    role VARCHAR(20) NOT NULL, -- Role of the user (Customer or Shopkeeper)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp of user creation
+);
+
+CREATE TABLE shops (
+    shop_id SERIAL PRIMARY KEY, -- Unique identifier for shops
+    shop_name VARCHAR(100) NOT NULL, -- Name of the shop
+    shop_description TEXT, -- Description of the shop
+    owner_id INT REFERENCES users(user_id), -- Owner of the shop (linked to users table)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp of shop creation
+);
+
+CREATE TABLE categories (
+    category_id SERIAL PRIMARY KEY, -- Unique identifier for categories
+    category_name VARCHAR(50) NOT NULL -- Name of the category
+);
+
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY, -- Unique identifier for products
+    product_name VARCHAR(100) NOT NULL, -- Name of the product
+    description TEXT, -- Description of the product
+    price DECIMAL(10, 2) NOT NULL, -- Price of the product
+    availability BOOLEAN NOT NULL, -- Availability status of the product
+    shop_id INT REFERENCES shops(shop_id), -- Shop that owns the product (linked to shops table)
+    category_id INT REFERENCES categories(category_id), -- Category of the product (linked to categories table)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp of product creation
+);
+
+-- Future Expansion:
+-- You can add additional tables or columns for features like reviews, orders, etc., and establish relationships as needed.
+
+-- Query Statements:
+-- 1. Retrieve all shops
+SELECT * FROM shops;
+
+-- 2. Retrieve products by category
+SELECT * FROM products WHERE category_id = {category_id};
+
+-- 3. Retrieve detailed information about a specific product
+SELECT * FROM products WHERE product_id = {product_id};
+
+-- 4. Retrieve shopkeepers' tools for shop management
+SELECT * FROM users WHERE role = 'Shopkeeper';
+
+-- 5. Insert new user into the database (example)
+INSERT INTO users (username, email, password_hash, role) 
+VALUES ('sample_user', 'sample@email.com', 'hashed_password', 'Customer');
+
+-- Add a new product to the database
+INSERT INTO products (product_name, description, price, availability, shop_id, category_id)
+VALUES ('New Product', 'Description of the new product', 49.99, TRUE, 1, 1);
+
+-- Update an existing product
+UPDATE products 
+SET price = 59.99, availability = FALSE
+WHERE product_id = {product_id};
+
+-- Delete a product
+DELETE FROM products
+WHERE product_id = {product_id};
+
+--Admin functions:
+-- Change user role (e.g., from Customer to Shopkeeper)
+UPDATE users
+SET role = 'Shopkeeper'
+WHERE user_id = {user_id};
+
+-- Grant admin privileges to a user
+UPDATE users
+SET role = 'Admin'
+WHERE user_id = {user_id};
+
+-- Revoke admin privileges from a user
+UPDATE users
+SET role = 'Customer'
+WHERE user_id = {user_id};
+
+-- Delete a user account
+DELETE FROM users
+WHERE user_id = {user_id};
+
+-- Retrieve all users with their roles
+SELECT user_id, username, email, role
+FROM users;
+
+-- Retrieve user details by user ID
+SELECT * FROM users
+WHERE user_id = {user_id};
